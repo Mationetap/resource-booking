@@ -1,0 +1,192 @@
+openapi: 3.0.0
+info:
+  title: 'API системы управления бронированием ресурсов'
+  description: 'Документация для API системы управления бронированием ресурсов.'
+  version: 1.0.0
+paths:
+  /bookings:
+    post:
+      tags:
+        - Бронирования
+      summary: 'Создать бронирование'
+      operationId: 2911657b7059f988a4bc398a1d21e68f
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - resource_id
+                - user_id
+                - start_time
+                - end_time
+              properties:
+                resource_id:
+                  type: integer
+                  example: 1
+                user_id:
+                  type: integer
+                  example: 123
+                start_time:
+                  type: string
+                  format: date-time
+                  example: '2025-03-01 10:00:00'
+                end_time:
+                  type: string
+                  format: date-time
+                  example: '2025-03-01 12:00:00'
+              type: object
+      responses:
+        '201':
+          description: 'Бронирование успешно создано'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+        '422':
+          description: 'Ошибка валидации'
+  '/bookings/{id}':
+    delete:
+      tags:
+        - Бронирования
+      summary: 'Отменить бронирование'
+      operationId: dc3a5e70d8c1811d5888122376cf81b3
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID бронирования'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Бронирование отменено'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Бронирование отменено' }
+                type: object
+        '400':
+          description: 'Ошибка отмены бронирования'
+  /resources:
+    get:
+      tags:
+        - Ресурсы
+      summary: 'Получить список всех ресурсов'
+      operationId: b68ca62605727ce3ea6d4551e462e567
+      responses:
+        '200':
+          description: 'Список ресурсов успешно получен'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Resource'
+    post:
+      tags:
+        - Ресурсы
+      summary: 'Создать новый ресурс'
+      operationId: 35423e34cd5fd4cdcd4ec832e2986fa1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - name
+                - type
+              properties:
+                name:
+                  type: string
+                  example: 'Комната переговоров'
+                type:
+                  type: string
+                  example: room
+                description:
+                  type: string
+                  example: 'Большая переговорная комната'
+              type: object
+      responses:
+        '201':
+          description: 'Ресурс успешно создан'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resource'
+        '422':
+          description: 'Ошибка валидации'
+components:
+  schemas:
+    Resource:
+      title: Ресурс
+      required:
+        - id
+        - name
+        - type
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: 'Комната переговоров'
+        type:
+          type: string
+          example: room
+        description:
+          type: string
+          example: 'Большая переговорная комната'
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+      type: object
+    Booking:
+      title: Бронирование
+      required:
+        - id
+        - resource_id
+        - user_id
+        - start_time
+        - end_time
+      properties:
+        id:
+          type: integer
+          example: 1
+        resource_id:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: 123
+        start_time:
+          type: string
+          format: date-time
+          example: '2021-01-01T10:00:00Z'
+        end_time:
+          type: string
+          format: date-time
+          example: '2021-01-01T12:00:00Z'
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+      type: object
+tags:
+  -
+    name: Бронирования
+    description: 'API для управления бронированиями'
+  -
+    name: Ресурсы
+    description: 'API для управления ресурсами'
