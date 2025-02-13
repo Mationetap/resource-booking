@@ -26,38 +26,38 @@
    ```bash
    git clone https://github.com/yourusername/resource-booking.git
    cd resource-booking
-
+   
 2. **Установка зависимостей:**
 
-   ```bash
-   composer install
-
+	```bash
+	composer install
+	
 3. **Настройка окружения:**
 
-   Скопируйте файл .env.example в .env:
+	Скопируйте файл .env.example в .env:
 
-   cp .env.example .env
-   Затем отредактируйте файл .env для указания настроек подключения к базе данных, почты и других параметров.
+	cp .env.example .env
+	Затем отредактируйте файл .env для указания настроек подключения к базе данных, почты и других параметров.
 
 3. **Генерация ключа приложения:**
 
-   ```bash
-   php artisan key:generate
+	```bash
+	php artisan key:generate
 4. **Запуск миграций:**
 
-   ```bash
-   php artisan migrate
-
+	```bash
+	php artisan migrate
+	
 5. **Тестирование**
 
-   Запустите тесты для проверки работоспособности:
+	Запустите тесты для проверки работоспособности:
 
-   php artisan test
+	php artisan test
 6. **Документация API**
-   Документация API генерируется с использованием Swagger (OpenAPI) и PHP 8 атрибутов.
+	Документация API генерируется с использованием Swagger (OpenAPI) и PHP 8 атрибутов.
 
-   Чтобы сгенерировать документацию, выполните команду:
-   ```bash
-   ./vendor/bin/openapi app -o openapi.yaml
+	Чтобы сгенерировать документацию, выполните команду:
+	```bash
+	./vendor/bin/openapi app -o openapi.yaml
 Генерируемый файл openapi.yaml можно использовать для просмотра документации через Swagger UI (если настроено) или другими OpenAPI-инструментами.
 Если Swagger UI настроен, документация может быть доступна по адресу, например, http://localhost/api/documentation.
